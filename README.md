@@ -1,5 +1,8 @@
 # Game Of Life
 
+> Created with [p5.js](https://p5js.org/) and JavaScript/HTML/CSS.
+  By Magno El Magnifico
+
 **John Horton Conway** was an English mathematician who contributed
 in several math theories: such us number theory or coding theory.
 
