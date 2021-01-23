@@ -3,7 +3,6 @@ const px        = 800;
 let size        = 20;
 let update_time = 100;
 let render_grid = true;
-let update      = false;
 let moore       = true;
 
 ////// Action buttons //////
@@ -12,6 +11,7 @@ let clear;
 
 ////// Game state //////
 let cells;
+let update = false;
 
 ////// SET UP GAME //////
 function setup() {
