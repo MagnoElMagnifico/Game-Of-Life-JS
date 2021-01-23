@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Game of Life</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="resources/logo.png">
+  <script src="p5.min.js"></script>
+  <script src="game.js"></script>
+</head>
+
+<body>
+  <div id="intro">
+    <h1>John Horton Conway</h1>
+    <h3>(1937-2020)</h3>
+    <img src="resources/conway.jpg" style="width: 600px; border-radius: 10%;">
+  </div>
+
+  <div id="game-of-life">
+
+    <h2>The Conway's Game of Life</h2>
+
+    <div id="video">
+      <p></p>
+      <!-- Original size: 560 315 -->
+      <iframe width="840" height="472" src="https://www.youtube.com/embed/omMcrvVGTMs?start=75" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+      <p></p>
+    </div>
+
+    <div id="rules">
+      <h3>Rules:</h3>
+      <ul>
+        <li><b>Birth rule</b>: A "dead", cell with precisely three "live" neighbors becomes live.</li>
+        <li><b>Death rule</b>: A "live" cell with 0 or 1 neighbors dies of isolation; a "live" cell with 4 or more
+          neighbors dies of overcrowding.</li>
+        <li><b>Survival rule</b>: A "live" cell with 2 or 3 neighbors remains alive.
+        </li>
+      </ul>
+    </div>
+
+    <div id="program">
+      <h3>Marcos' implementation:</h3>
+      <div id="game"></div>
+      <div id="info">
+        <div id="buttons"></div>
+        <p style="font-style: italic;">Created with <a href="https://p5js.org/">p5.js</a></p>
+      </div>
+    </div>
+
+    <div id="patterns">
+      <h3>Patterns:</h3>
+      <table>
+        <tr>
+          <th>Still lives</th>
+          <th>Oscilators</th>
+          <th>Spaceships</th>
+          <th>Methuselah</th>
+        </tr>
+        <tr>
+          <td>
+            <img src="resources/block.png" class="pattern">
+            <p>Block</p>
+          </td>
+          <td>
+            <img src="resources/blinker.gif" class="pattern">
+            <p>Blinker (2T)</p>
+          </td>
+          <td>
+            <img src="resources/glider.gif" class="pattern">
+            <p>Glider</p>
+          </td>
+          <td>
+            <img src="resources/r-pentomino.png" class="pattern">
+            <p>R-Pentomino</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src="resources/beehive.png" class="pattern">
+            <p>Bee-hive</p>
+          </td>
+          <td>
+            <img src="resources/toad.gif" class="pattern">
+            <p>Toad (2T)</p>
+          </td>
+          <td>
+            <img src="resources/lwss.gif" class="pattern">
+            <p>Light-weight spaceship</p>
+          </td>
+          <td>
+            <img src="resources/diehard.png" class="pattern">
+            <img src="resources/diehard-die.gif" class="pattern">
+            <p>Die-hard</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src="resources/flower.png" class="pattern">
+            <p>Flower</p>
+          </td>
+          <td>
+            <img src="resources/beacon.gif" class="pattern">
+            <p>Beacon (2T)</p>
+          </td>
+          <td>
+            <img src="resources/mwss.gif" class="pattern">
+            <p>Middle-weight spaceship</p>
+          </td>
+          <td>
+            <img src="resources/acorn.png" class="pattern">
+            <p>Acorn</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src="resources/boat.png" class="pattern">
+            <p>Boat</p>
+          </td>
+          <td>
+            <img src="resources/pulsar.gif" class="pattern">
+            <p>Pulsar (3T)</p>
+          </td>
+          <td>
+            <img src="resources/hwss.gif" class="pattern">
+            <p>Heavy-weight spaceship</p>
+          </td>
+        </tr>
+        <tr>
+          <th>Infinite growth</th>
+          <td colspan="2">
+            <img src="resources/gosper-glider-gun.gif" width="400">
+            <p>Glider Creator Patern</p>
+          </td>
+          <td>
+            <img src="resources/infinite.png" class="pattern">
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="other">
+      <h2>Other implementations</h2>
+
+      <div id="turing">
+        <h3>Turing Machine:</h3>
+        <img src="resources/turing-machine.png" width="600">
+        <img src="resources/turing-machine-gol.png">
+      </div>
+
+      <div id="digital">
+        <h3>Digital systems & Game of Life inside Game of Life:</h3>
+        <p><a href="#video">Video</a> 1:18</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="end">
+    <h1>Thanks for your attention</h1>
+    <h3>References:</h3>
+    <ul>
+      <li>John Horton Conway, <a href="https://en.wikipedia.org/wiki/John_Horton_Conway">Wikipedia</a></li>
+      <li>The Game of Live, <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Wikipedia</a></li>
+      <li>Cellular automaton, <a href="https://en.wikipedia.org/wiki/Cellular_automaton">Wikipedia</a></li>
+      <li>El juego de la vida, <a href="https://es.wikipedia.org/wiki/Juego_de_la_vida">Wikipedia</a></li>
+      <li>El juego de la vida, <a href="https://www.youtube.com/embed/omMcrvVGTMs">YouTube</a> (by Dot CSV)</li>
+      <li>Programa el juego de la vida... en 10 minutos,
+        <a href="https://www.youtube.com/watch?v=qPtKv9fSHZY">YouTube</a> (by Dot CSV)
+      </li>
+    </ul>
+    <hr>
+    <p></p>
+  </div>
+</body>
+
+</html>
