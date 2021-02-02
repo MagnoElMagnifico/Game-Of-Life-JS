@@ -4,11 +4,27 @@
 <head>
   <title>Game of Life</title>
   <link rel="icon" href="resources/logo.png">
-  <script src="p5.min.js"></script>
+
+  <!-- Add libraries : Use the online or the downloaded one -->
+  <script id="library"></script>
+  <script>
+    document.getElementById("library").src =
+      navigator.onLine ? "https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js" : "p5.min.js";
+  </script>
+
   <script src="game.js"></script>
+
+  <!-- Resize canvas -->
+  <script>
+    function windowResized() {
+      w     = windowWidth <= windowHeight ? windowWidth - 50 : windowHeight - 50;
+      wcell = w / ncells;
+      resizeCanvas(w, w);
+    }
+  </script>
 </head>
 
-<body>
+<body style="text-align: center;">
   <div id="game"></div>
   <div id="buttons"></div>
 </body>
