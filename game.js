@@ -1,6 +1,8 @@
 ////// Configuration //////
-const px        = 800;
-let size        = 20;
+let w      = 800;
+let ncells = 20;
+let wcell  = w / ncells;
+
 let update_time = 100;
 let render_grid = true;
 let moore       = true;
@@ -15,10 +17,12 @@ let update = false;
 
 ////// SET UP GAME //////
 function setup() {
-  createCanvas(px, px).parent("game");
+  createCanvas(w, w).parent("game").id("game-canvas");
   frameRate(30);
 
-  cells = Array(pow(px/size, 2)).fill(false);
+  cells = new Array(ncells); // cols or y
+  for (let i = 0; i < ncells; i++)
+    cells[i] = new Array(ncells).fill(false); // rows or x
 
   // Set up buttons
   button = createButton("Play").parent("buttons");
@@ -35,48 +39,23 @@ function setup() {
   });
 
   clear = createButton("Clear").parent("buttons");
-  clear.mousePressed(() => { cells.fill(false); });
+  clear.mousePressed(() => {
+    for (let y = 0; y < ncells; y++)
+    for (let x = 0; x < ncells; x++)
+      cells[y][x] = false;
+   });
 }
 
 ////// EVENTS //////
 function mouseReleased() {
-  if (!update && mouseX >= 0 && mouseY >= 0 && mouseX <= px && mouseY <= px) {
-    const x = Math.trunc(mouseX / size);
-    const y = Math.trunc(mouseY / size);
-    const i = y * (px/size) + x;
-    cells[i] = !cells[i];
+  if (!update && mouseX >= 0 && mouseY >= 0 && mouseX <= w && mouseY <= w) {
+    const x = int(mouseX / wcell);
+    const y = int(mouseY / wcell);
+    cells[y][x] = !cells[y][x];
   }
 }
 
 ////// RENDER & UPDATE /////
-function countNeighbors(i, c) {
-  if (i >= c.length || i < 0) { console.error("Invalid param"); return undefined; }
-
-  //   Moore   // Von Neumann
-  //  1  2  3  //  -  2  -
-  //  4  i  5  //  4  i  5
-  //  6  7  8  //  -  7  -
-  let n = 0;
-  const l = int(px / size);
-  if (c[i - 1 - l] && c[i - 1 - l] != undefined && moore) n++; // 1
-  if (c[i     - l] && c[i     - l] != undefined)          n++; // 2
-  if (c[i + 1 - l] && c[i + 1 - i] != undefined && moore) n++; // 3
-  if (c[i - 1]     && c[i - 1] != undefined) n++; // 4
-  if (c[i + 1]     && c[i + 1] != undefined) n++; // 5
-  if (c[i - 1 + l] && c[i - 1 + l] != undefined && moore) n++; // 6
-  if (c[i     + l] && c[i     + l] != undefined)          n++; // 7
-  if (c[i + 1 + l] && c[i + 1 + l] != undefined && moore) n++; // 8
-  return n;
-}
-
-function sleep(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
-}
-
 function draw() {
   background(100);
 
@@ -85,46 +64,66 @@ function draw() {
     stroke(90);
     strokeWeight(1);
 
-    for (let x = 0; x < px; x += size) line(0, x, px, x);
-    for (let y = 0; y < px; y += size) line(y, 0, y, px);
+    for (let x = 0; x < w; x += wcell) line(0, x, w, x);
+    for (let y = 0; y < w; y += wcell) line(y, 0, y, w);
   }
 
-  ////// CELLS //////
-  ////// Render cells //////
+  ////// RENDER CELLS //////
   fill(0);
   noStroke();
-  for (let i = 0; i < cells.length; i++) {
-    if (cells[i]) {
-      const l = px / size;
-      const x = i % l * size;
-      const y = int(i / l) * size;
-      square(x, y, size);
-    }
-  }
+  for (let y = 0; y < ncells; y++)
+  for (let x = 0; x < ncells; x++)
+    if (cells[y][x])
+      square(x*wcell, y*wcell, wcell);
 
-  ////// Update cells //////
+  ////// UPDATE CELLS //////
   if (update) {
 
-    let new_cells = Array(pow(px/size, 2)).fill(false);
+    let new_cells = new Array(ncells); // cols or y
+    for (let i = 0; i < ncells; i++)
+      new_cells[i] = new Array(ncells).fill(false); // rows or x
 
-    for (let i = 0; i < new_cells.length; i++) {
-      const n = countNeighbors(i, cells);
+    for (let y = 0; y < ncells; y++)
+    for (let x = 0; x < ncells; x++) {
 
+      ////// Count neighbors //////
+      let n = 0; // Number of neighbors
+
+      //   Moore   // Von Neumann
+      //  1  2  3  //  -  2  -
+      //  4  i  5  //  4  i  5
+      //  6  7  8  //  -  7  -
+
+      if (cells[y-1] != undefined && cells[y-1][x-1] != undefined && cells[y-1][x-1] && moore) n++; // 1
+      if (cells[y-1] != undefined && cells[y-1][x])                                            n++; // 2
+      if (cells[y-1] != undefined && cells[y-1][x+1] != undefined && cells[y-1][x+1] && moore) n++; // 3
+
+      if (cells[y][x-1] != undefined && cells[y][x-1]) n++; // 4
+      if (cells[y][x+1] != undefined && cells[y][x+1]) n++; // 5
+
+      if (cells[y+1] != undefined && cells[y+1][x-1] != undefined && cells[y+1][x-1] && moore) n++; // 6
+      if (cells[y+1] != undefined && cells[y+1][x])                                            n++; // 7
+      if (cells[y+1] != undefined && cells[y+1][x+1] != undefined && cells[y+1][x+1] && moore) n++; // 8
+
+      ////// Apply game rules //////
       // Birth rule
-      if (!cells[i] && n == 3)
-        new_cells[i] = true;
+      if (!cells[y][x] && n == 3)
+        new_cells[y][x] = true;
 
       // Death rule
-      else if (cells[i] && (n == 0 || n == 1 || n >= 4))
-        new_cells[i] = false;
+      else if (cells[y][x] && (n == 0 || n == 1 || n >= 4))
+        new_cells[y][x] = false;
 
       // Survival rule
-      else if (cells[i] && (n == 2 || n == 3))
-        new_cells[i] = true;
+      else if (cells[y][x] && (n == 2 || n == 3))
+        new_cells[y][x] = true;
     }
 
     cells = new_cells;
 
-    sleep(update_time);
+    ////// WAIT /////
+    const init = Date.now(); let current;
+    do { current = Date.now(); } while (current - init < update_time);
+
   }
 }
