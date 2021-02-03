@@ -106,25 +106,17 @@ No setup needed. Just open the `index.html` file on your browser, or
 
 ## Configurations avaliable
 
-You can configurate the game in several ways:
+You can configurate the game in several ways by changing the
+variable value in the code (`game.js`) or using the JavaScript console:
 
-+ **Size**: change `px` value in `game.js` line `2` (Default: 800).
-
-+ **Cell size**: change `size` value (in pixels) in `game.js` line
-   `3` or in the JavaScript console (Default: 20).
-
-+ **Update time**: change `update_time` value (in milliseconds) in
-  `game.js` line `3` or in the JavaScript console (Default: 100).
-
-+ **Render grid**: change `render_grid` value (`true`/`false`) in
-  `game.js` line `5` or in the JavaScript console (Default: `true`).
-
++ **Size**: `w`, line `2` (Default: 600).
++ **Number of cells per row/column**: `ncells`, line `3` (Default: 20).
++ **Update time**: `update_time` (milliseconds), line `6` (Default: 100).
++ **Render grid**: `render_grid` (`true`/`false`), line `7` (Default: `true`).
 + **Neighbors counting style**: change how the neighbors are counted
-  (more info
-  [here](https://en.wikipedia.org/wiki/Cellular_automaton#Overview)).
-  Change `moore` value (`true` for Moore neighbors and `false` for
-  von Neumann neighbors) in `game.js` line `6` or the JavaScript
-  console (Default: `true`).
+  (more info [here](https://en.wikipedia.org/wiki/Cellular_automaton#Overview)).
+  `moore` (`true` for Moore neighbors and `false` for
+  von Neumann neighbors), line `8` (Default: `true`).
 
 ## Links
 + John Horton Conway, [Wikipedia](https://en.wikipedia.org/wiki/John_Horton_Conway)

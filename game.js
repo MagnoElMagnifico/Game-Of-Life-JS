@@ -1,5 +1,5 @@
 ////// Configuration //////
-let w      = 800;
+let w      = 600;
 let ncells = 20;
 let wcell  = w / ncells;
 
